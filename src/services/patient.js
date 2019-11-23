@@ -3,7 +3,7 @@ const create = async () => {
 }
 
 const find = async () => {
-  return {hello: 'patient'}
+  return { hello: 'patient' }
 }
 
 module.exports = {
