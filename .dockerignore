@@ -1,0 +1,7 @@
+build
+node_modules
+.git
+
+**/build
+**/__tests__
+**/node_modules

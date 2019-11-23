@@ -1,0 +1,55 @@
+{
+  "name": "rest-api",
+  "version": "0.0.1",
+  "description": "Sample Rest API",
+  "main": "src/index.js",
+  "author": "Joe Chromo",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
+    "docker:start": "source ./local-infra/startup",
+    "docker:stop": "source ./local-infra/shutdown",
+    "lint": "npx standard",
+    "lint:fix": "npx standard --fix",
+    "lint:md": "npx standard-markdown",
+    "lint:md:fix": "npx standard-markdown --fix",
+    "test": "npx jest",
+    "coverage": "npm test -- --ci --coverage"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "http-status": "^1.4.1",
+    "morgan": "^1.9.1",
+    "response-time": "^2.3.2"
+  },
+  "devDependencies": {
+    "casual": "^1.6.2",
+    "eslint": "^6.5.1",
+    "husky": "^3.0.5",
+    "jest": "^24.9.0",
+    "jest-junit": "^6.4.0",
+    "nodemon": "^1.19.1",
+    "standard": "^14.1.0",
+    "standard-markdown": "^5.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test && npm run lint"
+    }
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$"
+  }
+}
