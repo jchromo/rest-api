@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "38e7f184-d329-4cb5-b65d-c41e3f25fc5a",
+		"name": "rest-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Patient to Master Patient Index",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"firstName\": \"Jon\",\n\t\"lastName\": \"Johnson\",\n\t\"socialSecurityNumber\": \"222-22-2225\"\n\n}"
+				},
+				"url": "http://localhost:8080/v1/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Enterprise Id and update First Name",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"enterpriseId\": \"{{$guid}}\",\n\t\"firstName\": \"Jonathon\"\n}"
+				},
+				"url": "http://localhost:8080/v1/patients/9"
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Paitiens",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Find Patients by Query",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/patients?firstName=jon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"patients"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "jon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Patient by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/patients/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Patient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/v1/patients/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Patient Member Record",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"patientId\": 3,\n\t\"medicalRecordNumber\": \"12345\",\n    \"source\": \"Org_ID_12345\"\n\n}"
+				},
+				"url": "http://localhost:8080/v1/patientMemberRecords"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
