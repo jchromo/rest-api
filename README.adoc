@@ -8,7 +8,7 @@ The following kicks off a docker compose running api in express docker container
 
 [source,bash]
 ----
-$ npm insatll
+$ npm install
 $ source local-infra/startup
 ----
 
