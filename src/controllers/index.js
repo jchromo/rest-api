@@ -1,5 +1,9 @@
 const PatientController = require('./patients')
+const AddressController = require('./address')
+const PatientMemberRecordController = require('./patientMemberRecord')
 
 module.exports = {
-  PatientController
+  PatientController,
+  AddressController,
+  PatientMemberRecordController
 }

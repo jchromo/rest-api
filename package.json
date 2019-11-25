@@ -10,6 +10,7 @@
     "start:dev": "nodemon src/index.js",
     "docker:start": "source ./local-infra/startup",
     "docker:stop": "source ./local-infra/shutdown",
+    "db:migrate": "sequelize db:migrate --migrations-path=./src/migrations --models-path=./src/models --config=./src/config/config.json",
     "lint": "npx standard",
     "lint:fix": "npx standard --fix",
     "lint:md": "npx standard-markdown",
@@ -45,6 +46,9 @@
     }
   },
   "standard": {
+    "ignore": [
+      "./src/models/index.js"
+    ],
     "env": [
       "jest"
     ]

@@ -23,7 +23,9 @@ services:
     container_name: sampleRestApi
     command: >
       sh -c "
+        npm install -g sequelize-cli
         npm install
+        npm run db:migrate
         npm run start:dev
       "
     working_dir: /app

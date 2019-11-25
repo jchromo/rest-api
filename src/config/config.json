@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "password",
+    "database": "db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "docker": {
+    "username": "root",
+    "password": "password",
+    "database": "db",
+    "host": "mysql",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+}
