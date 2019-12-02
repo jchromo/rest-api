@@ -12,7 +12,7 @@ $ npm install
 $ source local-infra/startup
 ----
 
-See rest-api.postman_collection.json to test api
+The api is deinfed in openapi.yaml  See rest-api.postman_collection.json to test api
 
 The Above was tested on mac.  If running on Windows or Linux and the above script does not work for you, please do the following:
 
