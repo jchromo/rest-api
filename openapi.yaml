@@ -15,7 +15,7 @@ paths:
       summary: Create a new Patient Member Record
       operationId: createPatientMemberRecord
       description: >-
-        Creates a new Patient Member Record.  The server first ensures that a Medical Record Number has not already been created for this patient within the same source.  If not, then the server checks to see if the patient has been added to the Enterprise Master Paitient Index.  If not, an enterpiseId is generated for the patient and the patient model is returned with the Patient Member Record created and all other Patient Member Records previsouly associated with the enterpriseId</br></br> 
+        Creates a new Patient Member Record.  The server first ensures that a Medical Record Number has not already been created for this patient within the same source.  If so an error is returned.  Otherwise, the server checks to see if the patient has been added to the Enterprise Master Paitient Index.  If not, an enterpiseId is generated for the patient.   The patient model is then returned with the Patient Member Record created and all other Patient Member Records previsouly associated with the enterpriseId.</br></br> 
       requestBody:
         required: true
         content:
@@ -133,10 +133,6 @@ paths:
 
 components:
 
-
-#/components/schemas/PatientMemberRecordCreate
-#/components/schemas/PatientMemberRecordUpdate
-#/components/schemas/PatientMenmberRecords
   schemas:
 
     PatientMemberRecordCreate:
