@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Add Patient to Master Patient Index",
+			"name": "Add Patient Member Record to Master Patient Index",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -23,9 +23,18 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\n\t\"firstName\": \"Jon\",\n\t\"lastName\": \"Johnson\",\n\t\"socialSecurityNumber\": \"222-22-2225\"\n\n}"
+					"raw": "{\n\t\n\t\"firstName\": \"Jon\",\n\t\"lastName\": \"Johnson\",\n\t\"socialSecurityNumber\": \"222-22-2226\",\n\t\"medicalRecordNumber\": \"MR3\",\n\t\"source\": \"ORG3\",\n\t\"address\": {\n\t\t\"addressLine1\": \"1405 Mout Airy Road\",\n        \"addressLine2\": \"\",\n        \"city\": \"Baltimore\",\n        \"state\": \"MD\",\n        \"zipCode\": 21237\n\t}\n\n}"
 				},
 				"url": "http://localhost:8080/v1/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Find Patients by Source and Medical Record Number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/patients/Org3/MR3"
 			},
 			"response": []
 		},
@@ -47,86 +56,18 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"enterpriseId\": \"{{$guid}}\",\n\t\"firstName\": \"Jonathon\"\n}"
+					"raw": "{\n\t\n\t\"firstName\": \"Jonathon\",\n\t\"lastName\": \"Johnson\"\n}"
 				},
-				"url": "http://localhost:8080/v1/patients/9"
+				"url": "http://localhost:8080/v1/patients/ORG3/MR3"
 			},
 			"response": []
 		},
 		{
-			"name": "Find All Paitiens",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/patients"
-			},
-			"response": []
-		},
-		{
-			"name": "Find Patients by Query",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/patients?firstName=jon",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"patients"
-					],
-					"query": [
-						{
-							"key": "firstName",
-							"value": "jon"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Find Patient by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/patients/1"
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Patient",
+			"name": "Delete Patient Member Record",
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:8080/v1/patients/1"
-			},
-			"response": []
-		},
-		{
-			"name": "Add Patient Member Record",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\n\t\"patientId\": 3,\n\t\"medicalRecordNumber\": \"12345\",\n    \"source\": \"Org_ID_12345\"\n\n}"
-				},
-				"url": "http://localhost:8080/v1/patientMemberRecords"
+				"url": "http://localhost:8080/v1/patients/ORG3/MR3"
 			},
 			"response": []
 		}

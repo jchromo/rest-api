@@ -34,15 +34,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      patientId: {
-        type: Sequelize.INTEGER,
-        unique: true,
-        references: {
-          model: 'Patients',
-          key: 'id',
-          as: 'patientId'
-        }
       }
     })
   },

@@ -7,3 +7,240 @@ info:
   termsOfService: ""
   contact:
     email: joe.chromo@gmail.com
+paths:
+  '/patients' :
+    post:
+      tags:
+        - Patients
+      summary: Create a new Patient Member Record
+      operationId: createPatientMemberRecord
+      description: >-
+        Creates a new Patient Member Record.  The server first ensures that a Medical Record Number has not already been created for this patient within the same source.  If not, then the server checks to see if the patient has been added to the Enterprise Master Paitient Index.  If not, an enterpiseId is generated for the patient and the patient model is returned with the Patient Member Record created and all other Patient Member Records previsouly associated with the enterpriseId</br></br> 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientMemberRecordCreate'
+      responses:
+        '200':
+          description: Resource Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientMemberRecords'
+        '400':
+          description: Invalid Patient Member Record Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                message: Patient with ssn 222-22-2222 has already been assigned a medical record number MR1 in source ORG1
+                
+  '/patients/{source}/{medicalRecordNumber}' :
+    patch:
+      tags:
+        - Patients
+      summary: Update paitent medical record
+      operationId: patchPatients
+      description: |
+        Update patient member record.  Only accepts first and last names as update fields
+      parameters:
+        - name: source
+          in: path
+          description: Source for patient member record
+          required: true
+          schema:
+            type: string
+            example: 'ORG1'
+        - name: medicalRecordNumber
+          in: path
+          description: Medical Record Number for patient member record
+          required: true
+          schema:
+            type: string
+            example: 'MR1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientMemberRecordUpdate'
+      responses:
+        '204':
+          description: Patient Member Record Updated
+        '404':
+          description: Patient Member Record Not Found
+    delete:
+      tags:
+        - Patients
+      summary: Deletes paitent medical record
+      operationId: deletePatients
+      description: |
+        Deletes patient member record.  Only accepts first and last names as update fields
+      parameters:
+        - name: source
+          in: path
+          description: Source for patient member record
+          required: true
+          schema:
+            type: string
+            example: 'ORG1'
+        - name: medicalRecordNumber
+          in: path
+          description: Medical Record Number for patient member record
+          required: true
+          schema:
+            type: string
+            example: 'MR1'
+      responses:
+        '204':
+          description: Patient Member Record Deleted
+        '404':
+          description: Patient Member Record Not Found
+    get:
+      tags:
+        - Patients
+      summary: Gets paitent medical record based on source and medicalRecordNumber.  
+      operationId: getPatients
+      description: |
+        Retrieves single patient member record given a source and medicalRecordNumber. The patient model returned will contain the one patient member record found and will be included in the patientMemberRecords array.
+      parameters:
+        - name: source
+          in: path
+          description: Source for patient member record
+          required: true
+          schema:
+            type: string
+            example: 'ORG1'
+        - name: medicalRecordNumber
+          in: path
+          description: Medical Record Number for patient member record
+          required: true
+          schema:
+            type: string
+            example: 'MR1'
+      responses:
+        '200':
+          description: Patient Member Record Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientMemberRecords'
+        '404':
+          description: Patient Member Record Not Found 
+
+components:
+
+
+#/components/schemas/PatientMemberRecordCreate
+#/components/schemas/PatientMemberRecordUpdate
+#/components/schemas/PatientMenmberRecords
+  schemas:
+
+    PatientMemberRecordCreate:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        medicalRecordNumber:
+          type: string
+        socialSecurityNumber:
+          type: string
+        source:
+          type: string
+        address:
+          type: object
+          additionalProperties: false
+          properties:
+            addressLine1:
+              type: string                
+            addressLine2:
+              type: string                
+            city:
+              type: string                
+            state:
+              type: string                
+            zip:
+              type: string                
+      required:
+        - socialSecurityNumber
+        - firstName
+        - lastName
+
+    PatientMemberRecordUpdate:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    PatientMemberRecordCreated:
+      type: object
+      properties:
+        id: 
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        medicalRecordNumber:
+          type: string
+        socialSecurityNumber:
+          type: string
+        source:
+          type: string
+        addressId: 
+          type: number
+        createdAt:
+          type: string
+          format: date
+          example: '2019-07-01T09:49:26.000Z'
+        updatedAt:
+          type: string
+          format: date
+          example: '2019-07-01T09:49:26.000Z'
+        address:
+          type: object
+          properties:
+            id: 
+              type: number
+            addressLine1:
+              type: string                
+            addressLine2:
+              type: string                
+            city:
+              type: string                
+            state:
+              type: string                
+            zip:
+              type: string 
+            createdAt:
+              type: string
+              format: date
+              example: '2019-07-01T09:49:26.000Z'
+            updatedAt:
+              type: string
+              format: date
+              example: '2019-07-01T09:49:26.000Z'
+
+    PatientMemberRecords:
+      type: object
+      properties:
+        enterpriseId:
+          type: string
+        patientMemberRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientMemberRecordCreated'
+
+                    
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string

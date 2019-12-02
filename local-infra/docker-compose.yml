@@ -24,6 +24,7 @@ services:
     command: >
       sh -c "
         npm install -g sequelize-cli
+        npm install -g bunyan
         npm install
         npm run db:migrate
         npm run start:dev

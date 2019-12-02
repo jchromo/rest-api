@@ -4,7 +4,8 @@ const morgan = require('morgan')
 const cors = require('cors')
 const compression = require('compression')
 const responseTime = require('response-time')
-// const { errorMiddleware, requestMiddleware, responseMiddleware, userAuth0Middleware, prometheus } = require('./lib/middleware')
+const { log } = require('./utils/logger')
+const { timeRequest } = require('./lib/middleware')
 const routers = require('./routers')
 const helmet = require('helmet')
 
@@ -14,17 +15,14 @@ const DEFAULT_CONFIGURATION = {
 }
 
 module.exports = class ExpressServer {
-  constructor ({ configuration, logger, isLocal }) {
-    // this.config = configuration
+  constructor ({ configuration }) {
     this.config = { ...configuration, DEFAULT_CONFIGURATION }
-    console.log('CREATING!!!!')
     this.instance = express()
-    this.logger = logger
-    this.isLocal = isLocal
+    this.log = log
   }
 
   handleInstanceStarted () {
-    // this.logger.info(`Server instance started on ${this.config.port}`)
+    this.log.info(`Server instance started on ${this.config.APP_PORT}`)
   };
 
   asWebService () {
@@ -38,21 +36,14 @@ module.exports = class ExpressServer {
     return this
   }
 
-  addRequestHandlerMiddleware () {
-    return this
-  };
-
-  addResponseHandlerMiddleware () {
+  addTimerMiddleware () {
+    this.instance.use(timeRequest)
     return this
   };
 
   start () {
-    console.log(`Listening on: ${this.config.APP_PORT}`)
+    log.info(`Listening on: ${this.config.APP_PORT}`)
     this.instance.listen(this.config.APP_PORT, this.handleInstanceStarted.bind(this))
-    return this
-  }
-
-  processListener () {
     return this
   }
 
@@ -60,13 +51,12 @@ module.exports = class ExpressServer {
     const version = 'v1'
     Object.keys(routers).forEach((name) => {
       const route = `/${version}/${name}`
-      console.log(`Registering versioning router [${name}] at ${route}...`)
+      log.info(`Registering versioning router [${name}] at ${route}...`)
       this.addRoute(route, routers[name])
     })
     return this
   }
 
-  // private functions
   addRoute (prefix, routeConfig) {
     this.instance.use(
       prefix,

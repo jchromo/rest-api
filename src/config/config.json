@@ -15,6 +15,15 @@
     "dialect": "mysql",
     "operatorsAliases": false
   },
+  "test": {
+    "use_env_variable": false,
+    "username": "root",
+    "password": "password",
+    "database": "db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
   "production": {
     "username": "root",
     "password": null,

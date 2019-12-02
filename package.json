@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "node src/index.js",
-    "start:dev": "nodemon src/index.js",
+    "start:dev": "nodemon src/index.js | bunyan",
     "docker:start": "source ./local-infra/startup",
     "docker:stop": "source ./local-infra/shutdown",
     "db:migrate": "sequelize db:migrate --migrations-path=./src/migrations --models-path=./src/models --config=./src/config/config.json",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bunyan": "^1.8.12",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -28,7 +29,9 @@
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
     "response-time": "^2.3.2",
-    "sequelize": "^5.21.2"
+    "sequelize": "^5.21.2",
+    "sequelize-mock": "^0.10.2",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "casual": "^1.6.2",

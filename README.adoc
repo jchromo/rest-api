@@ -13,3 +13,31 @@ $ source local-infra/startup
 ----
 
 See rest-api.postman_collection.json to test api
+
+The Above was tested on mac.  If running on Windows or Linux and the above script does not work for you, please do the following:
+
+Set up mysql db with connection profile (or modify /src/config/config.json to match your db):
+
+[source,json]
+----
+{
+  "development": {
+    "username": "root",
+    "password": "password",
+    "database": "db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+----
+
+Then run the following:
+
+[source,bash]
+----
+$ npm install -g sequelize-cli
+$ npm install -g bunyan
+$ npm install
+$ npm run db:migrate
+$ LOG_LEVEL=debug npm run start:dev
+----

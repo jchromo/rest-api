@@ -1,24 +1,12 @@
 'use strict'
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Patients', {
       id: {
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      enterpriseId: {
         type: Sequelize.DataTypes.UUID,
-        unique: true
-      },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: false
+        primaryKey: true
       },
       socialSecurityNumber: {
         type: Sequelize.STRING,
